@@ -1,11 +1,9 @@
 SECTION "rom", ROM0
 INCLUDE "constants.inc"
 
-; TODO: why isn't my vblank interrupt being called?
+; vblank interrupt routine called once per frame
 SECTION "vblank", ROM0[$40]
-ld hl, $FFFE
-inc [hl]
-ret
+jp vblank
 
 ; entry point after boot ROM executes
 SECTION "init", ROM0[$100]
@@ -45,6 +43,12 @@ main:
     ld hl, VRAM_BG_MAP_1
     call memset
 
+    ; set bit zero of the interrupt enable I/O register to enable vblank interrupts,
+    ; then set the Interrupt Master Enable (IME) register using the `ei` instruction to allow interrupts
+    ld hl, INTERRUPT_ENABLE
+    set 0, [hl]
+    ei
+
     ; turn the LCD back on to display the map
     call lcd_on
 loop:
@@ -67,3 +71,13 @@ lcd_on:
 
 tile_graphics:
     incbin "tile.2bpp"
+
+vblank:
+    ld a, [SCROLLX]
+    inc a
+    ld [SCROLLX], a
+    ld a, [SCROLLY]
+    inc a
+    ld [SCROLLY], a
+    reti ; reti == ei, ret (re-enables interrupts before returning)
+    

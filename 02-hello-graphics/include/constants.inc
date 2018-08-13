@@ -8,6 +8,7 @@ CURR_SCANLINE EQU $FF44
 BG_PAL EQU $FF47
 OBJ0_PAL EQU $FF48
 OBJ1_PAL EQU $FF49
+INTERRUPT_ENABLE EQU $FFFF
 
 ; Other important memory locations:
 ; http://gameboy.mongenel.com/dmg/asmmemmap.html
