@@ -98,7 +98,7 @@ load_background_tiles:
     ret
 
 load_graphics:
-    ; load sprite tile data into VRAM at tile numbers 1-4
+    ; load 8 tiles of pixel data into VRAM at tile numbers 1-8
     ld de, $80
     ld bc, sprite_graphics
     ld hl, VRAM_TILES + $10
