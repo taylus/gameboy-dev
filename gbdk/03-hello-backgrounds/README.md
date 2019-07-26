@@ -3,7 +3,7 @@ A Game Boy ROM which displays a scrolling background using GBDK.
 
 Compile by running `make` from this directory.
 
-<!--![Screenshot](screenshot.png "Screenshot")-->
+![Screenshot](screenshot.gif "Screenshot")
 
 # Resources
 * [Game Boy Tiler Designer](http://www.devrs.com/gb/hmgd/gbtd.html)
