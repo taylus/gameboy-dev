@@ -2,6 +2,11 @@
 #include "pkmn_tiles.h"
 #include "pkmn_map.h"
 
+void vblank()
+{
+    scroll_bkg(1, 0);
+}
+
 void main()
 {
     set_bkg_data(0, 8, tile_data);
@@ -9,9 +14,5 @@ void main()
     scroll_bkg(0, 16);
     SHOW_BKG;
 
-    while(1)
-    {
-        scroll_bkg(1, 0);
-        delay(30);
-    }
+    add_VBL(vblank);
 }
