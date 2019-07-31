@@ -19,8 +19,8 @@ main.o: $(srcdir)\main.asm gfx outdir
 memory.o: $(srcdir)\memory.asm outdir
 	rgbasm -o $(outdir)\memory.o -i $(incdir)/ $(srcdir)\memory.asm
 
-gfx: $(incdir)\tile.png
-	rgbgfx -o $(incdir)\tile.2bpp $(incdir)\tile.png
+gfx: $(incdir)\gameboy.png
+	rgbgfx -u -o $(incdir)\gameboy.2bpp $(incdir)\gameboy.png
 
 outdir:
 	if not exist $(outdir) mkdir $(outdir)

@@ -22,26 +22,26 @@ main:
     ld a, %11100100
     ld [BG_PAL], a
 
-    ; show tiles (0, 0) thru (20, 18) of the 32x32 bg map #1 in VRAM
-    ; already set up this way by the GB's boot ROM
-    ; ld a, 0
-    ; ld [SCROLLX], a
-    ; ld [SCROLLY], a
-
     ; turn off the LCD to access VRAM
     call lcd_off
 
-    ; load tile #0 pixel data into VRAM
-    ld de, $10
-    ld bc, tile_graphics
+    ; load tile data into VRAM
+    ld de, NUM_TILES * 16 ; 16 bytes per tile (8 x 8 pixels @ 2 bits per pixel)
+    ld bc, tile_data
     ld hl, VRAM_TILES
     call memcpy
 
-    ; set all tiles onscreen to tile #0
+    ; set all background tiles to tile #0
     ld de, $400
     ld b, 0
     ld hl, VRAM_BG_MAP_1
     call memset
+
+    ; set onscreen background tiles to the appropriate #s for displaying the source image
+    ld de, $240
+    ld bc, map_data
+    ld hl, VRAM_BG_MAP_1
+    call memcpy
 
     ; set bit zero of the interrupt enable I/O register to enable vblank interrupts,
     ; then set the Interrupt Master Enable (IME) register using the `ei` instruction to allow interrupts
@@ -69,15 +69,20 @@ lcd_on:
     set 7, [hl]
     ret
 
-tile_graphics:
-    incbin "tile.2bpp"
+; contains pixel data for tiles in 2-bits-per-pixel format
+tile_data:
+    incbin "gameboy.2bpp"
+
+; contains tile #s which plot the tile data above to recontruct the original image
+map_data:
+    incbin "gameboy.tilemap"
 
 vblank:
-    ld a, [SCROLLX]
-    inc a
-    ld [SCROLLX], a
-    ld a, [SCROLLY]
-    inc a
-    ld [SCROLLY], a
+    ;ld a, [SCROLLX]
+    ;inc a
+    ;ld [SCROLLX], a
+    ;ld a, [SCROLLY]
+    ;inc a
+    ;ld [SCROLLY], a
     reti ; reti == ei, ret (re-enables interrupts before returning)
     

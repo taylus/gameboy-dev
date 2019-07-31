@@ -1,8 +1,10 @@
 # Hello Graphics
-A Game Boy ROM that displays a scrolling checkerboard pattern by overwriting tile #0 in VRAM, clearing out the background tile table, and incrementing the X and Y scroll registers each frame during vblank.
+A Game Boy ROM that displays a background image processed from a .png by [`rgbgfx`](https://rednex.github.io/rgbds/rgbgfx.1.html). You can produce suitable .pngs using a utility I wrote called [`gbgfx`](https://github.com/taylus/gameboy-graphics).
 
 Compile by running `make` from this directory.
 
-![Screenshot](screenshot.png "Screenshot")
-![Screenshot](screenshot_02.png "Screenshot")
-![Screenshot](screenshot_03.png "Screenshot")
+![tilemap in bgb vram viewer](screenshots/vram_viewer_bgmap.png "tilemap in bgb vram viewer")
+
+![tilemap in bgb vram viewer](screenshots/vram_viewer_bgmap.png "tilemap in bgb vram viewer")
+
+![tiles in bgb vram viewer](screenshots/vram_viewer_tiles.png "tiles in bgb vram viewer")
