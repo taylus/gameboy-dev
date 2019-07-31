@@ -3,7 +3,7 @@ A Game Boy ROM that displays a background image processed from a .png by [`rgbgf
 
 Compile by running `make` from this directory.
 
-![tilemap in bgb vram viewer](screenshots/vram_viewer_bgmap.png "tilemap in bgb vram viewer")
+![bgb running the ROM](screenshots/bgb_running_rom.png "bgb running the ROM")
 
 ![tilemap in bgb vram viewer](screenshots/vram_viewer_bgmap.png "tilemap in bgb vram viewer")
 
