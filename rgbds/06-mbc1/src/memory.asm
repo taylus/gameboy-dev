@@ -1,4 +1,4 @@
-section "memory routines", romx
+section "memory routines", rom0
 ; memcpy implementation for Z80
 ; http://voidptr.io/blog/2017/01/21/GameBoy.html
 memcpy::

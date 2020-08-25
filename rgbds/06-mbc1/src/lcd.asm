@@ -1,7 +1,7 @@
 LCD_CTRL equ $FF40
 CURR_SCANLINE equ $FF44
 
-section "lcd routines", romx
+section "lcd routines", rom0
 turn_lcd_off::
     ; wait for vblank
     ldh a, [CURR_SCANLINE]
@@ -13,6 +13,5 @@ turn_lcd_off::
 
 turn_lcd_on::
     ld hl, LCD_CTRL
-    ld a, %10011010
-    ld [hl], a
+    set 7, [hl]
     ret
