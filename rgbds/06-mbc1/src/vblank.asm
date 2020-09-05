@@ -21,18 +21,23 @@ endm
 
 section "vblank handler", rom0
 vblank:
-    ; TODO: delay this to slow input down
-    ; (do something like https://github.com/taylus/nes-dev/blob/master/10-palette-cycling/palette-cycling.s#L64?)
+    ; count frames, only processing input every 4th frame
+    ldh a, [frame_counter]
+    inc a
+    ldh [frame_counter], a
+    and a, $3
+    jr nz, .done
+.handle_input:
     call is_left_pressed
     jr z, .left_not_pressed
     dec_rom_bank
     bank_switch_and_reload_screen
 .left_not_pressed:
     call is_right_pressed
-    jr z, .right_not_pressed
+    jr z, .done
     inc_rom_bank
     bank_switch_and_reload_screen
-.right_not_pressed:
+.done:
     reti
 
 ; set bit 0 of the interrupt enable I/O register to enable vblank interrupts,
@@ -43,3 +48,6 @@ enable_vblank_interrupt::
     set 0, [hl]
     ei
     ret
+
+section "video-related variables", hram
+frame_counter:: ds 1

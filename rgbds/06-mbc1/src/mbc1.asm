@@ -31,5 +31,5 @@ rom_bank_switch::
     ld [MBC1_RAM_BANK], a
     ret
 
-section "variables", hram
+section "rom banking variables", hram
 current_rom_bank:: ds 1
