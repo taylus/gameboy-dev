@@ -15,6 +15,8 @@ endm
 ; switch to the ROM bank specified by A
 ; clobbers: A
 rom_bank_switch::
+    ldh [current_rom_bank], a
+
     ; write lower 5 bits to $2000 (TODO: need to mask?)
     ld [MBC1_ROM_BANK], a
 
@@ -28,3 +30,6 @@ rom_bank_switch::
     endr
     ld [MBC1_RAM_BANK], a
     ret
+
+section "variables", hram
+current_rom_bank:: ds 1

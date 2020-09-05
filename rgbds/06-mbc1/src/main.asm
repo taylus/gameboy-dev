@@ -10,16 +10,17 @@ load_tileset:
     ld hl, $8000    ; destination address to memcpy to (tileset VRAM)
     call memcpy
 game:
-    ld a, $7F
+    ld a, $3F
     call rom_bank_switch
     call load_bgmap
+    call enable_vblank_interrupt
     call turn_lcd_on
 .game_loop:
     ; TODO: bank switch on input
     halt
     jr .game_loop
 
-load_bgmap:
+load_bgmap::
     ld de, 16       ; number of bytes to memcpy (length of "TEST ROM BANK NN")
     ld bc, rom1     ; source address to memcpy from
     ld hl, $9800    ; destination address to memcpy to (bg map data #1)
